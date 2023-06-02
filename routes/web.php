@@ -32,4 +32,20 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::resource('/dashboard/category', App\Http\Controllers\Dashboard\CategoryController::class);
 });
+
+//Podriamos implementarlo de esta forma tambien
+// Route::group(['middleware' => [
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified',
+// ]], function (){
+//     Route::resource('/dashboard/category', App\Http\Controllers\Dashboard\CategoryController::class);
+// });
+
+
+// Route::inertia('/indexconinertia', 'Dashboard/Post/Index');
+
+//Route::get('/', [App\Http\Controllers\Dashboard\PostController::class, 'index']);
