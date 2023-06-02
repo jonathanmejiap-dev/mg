@@ -26,7 +26,7 @@ class CategoryController extends Controller
     public function create()
     {
         //
-        return inertia('Dashboard/Category/Create');
+        return inertia('Dashboard/Category/Create')->with('message', "Categoria actualizada correctamente");
     }
 
     /**
@@ -47,6 +47,8 @@ class CategoryController extends Controller
         // $category->slug = $request->slug;
         // $category->save();
         Category::create($request->validated());
+        //redirecciona con estilo SPA
+        return to_route('category.index')->with('message', "Categoria Creada correctamente");;
     }
 
     /**
@@ -73,6 +75,8 @@ class CategoryController extends Controller
     {
         // dd($request->all());
         $category->update($request->validated());
+        //redirecciona la página
+        return redirect()->route('category.index')->with('message', "Categoria actualizada correctamente");
     }
 
     /**
@@ -82,5 +86,6 @@ class CategoryController extends Controller
     {
         //
         $category->delete();
+        return to_route('category.index')->with('message', "Categoria eliminada correctamente");
     }
 }
