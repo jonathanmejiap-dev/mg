@@ -34,6 +34,7 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('/dashboard/category', App\Http\Controllers\Dashboard\CategoryController::class);
+    Route::resource('/post', App\Http\Controllers\Dashboard\PostController::class);
 });
 
 //Podriamos implementarlo de esta forma tambien
