@@ -13,6 +13,7 @@
                         <thead class="bg-slate-200">
                             <tr class="border-b">
                                 <th class="p-3">Id</th>
+                                <th class="p-3">Image</th>
                                 <th class="p-3">Title</th>
                                 <th class="p-3">Slug</th>
                                 <th class="p-3">Actions</th>
@@ -21,6 +22,7 @@
                         <tbody>
                             <tr class="border-b" v-for="c in posts.data" :key="c.id">
                                 <td class="p-2">{{ c.id }}</td>
+                                <td class="p-2"><img :src="'/image/post/'+c.image" class="w-16"/></td>
                                 <td class="p-2">{{ c.title }}</td>
                                 <td class="p-2">{{ c.slug }}</td>
                                 <td class="p-2">

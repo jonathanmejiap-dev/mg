@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('text', 255)->nullable();
             
             $table->enum('posted', ['yes', 'not'])->default('not');
-            $table->enum('type', ['adverd', 'post', 'course', 'movie'])->default('post');
+            $table->enum('type', ['advert', 'post', 'course', 'movie'])->default('post');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
 

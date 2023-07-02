@@ -10,6 +10,7 @@
                     <jet-input-error :message="errors.title" />
                 </div>
 
+
                 <div class="col-span-6">
                     <jet-label value="Slug" />
                     <jet-input class="w-full" type="text" v-model="form.slug" />
@@ -23,6 +24,12 @@
                 <div class="col-span-6">
                     <jet-label value="Text" />
                     <textarea class="rounded-md w-full border-gray-300" v-model="form.text"></textarea>
+                    <!-- <textarea
+         class="rounded-md w-full border-gray-300"
+         v-model="form.text"></textarea> -->
+
+                    <!-- <ckeditor :editor="editor.editor" v-model="form.text"></ckeditor> -->
+
                     <jet-input-error :message="errors.text" />
                 </div>
                 <div class="col-span-6">
@@ -55,47 +62,37 @@
                 <div class="col-span-6">
                     <jet-label value="Category" />
                     <select class="rounded-md w-full border-gray-300" v-model="form.category_id">
-
+                        <option value=""></option>
                         <option v-for="c in categories" :value="c.id" :key="c.id">{{ c.title }}</option>
                     </select>
                     <jet-input-error :message="errors.category_id" />
                 </div>
-                <div class="col-span-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <jet-label value="Image"/>
-                            <jet-input class="w-full" type="file" @input="form.image = $event.target.files[0]"/>
-                            <jet-input-error :message="errors.image"/>
-                            <!-- <jet-button @click="upload">Subir</jet-button>  -->
-                        </div>
-                    </div>
-                </div>
+
                 <div class="col-span-6">
                     <o-field class="file">
-                        <o-upload v-model="form.image">
+                        <o-upload v-model="image">
                         <o-button tag="a" variant="primary">
-                            <fa icon="fa-upload"/>
-                            <span> Click para subir imagen</span>
+                            <o-icon icon="upload"></o-icon>
+                            <span>Subir imagen</span>
                         </o-button>
                         </o-upload>
-                        <span class="file-name" v-if="form.image">
-                        {{ form.image.name }}
+                        <span class="file-name" v-if="file">
+                        {{ file.name }}
                         </span>
                     </o-field>
-                    <jet-input-error :message="errors.image"/>
                 </div>
             </template>
             <template #actions>
-                <jet-button type="submit">Registrar</jet-button>
+                <jet-button type="submit">Send</jet-button>
             </template>
         </jet-form-section>
-
-        
     </app-layout>
 </template>
  
 <script>
 import { useForm, router } from "@inertiajs/vue3";
+
+// import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
 
 import AppLayout from "@/Layouts/AppLayout.vue";
 import JetFormSection from "@/Components/FormSection.vue";
@@ -112,32 +109,54 @@ export default {
         JetLabel,
         JetButton,
         JetFormSection,
+        // ClassicEditor
+    },
+    data() {
+        return {
+            // editor: {
+            //     editor: ClassicEditor
+            // }
+        }
     },
     props: {
         errors: Object,
-        categories: Object
+        post: {
+            type: Object,
+            default: {
+                id: "",
+                title: "",
+                slug: "",
+                date: "",
+                description: "",
+                text: "",
+                type: "",
+                posted: "",
+                category_id: "",
+                image: "",
+            },
+        },
+        categories: Object,
     },
-    setup() {
+
+    setup(props) {
         const form = useForm({
-            title: null,
-            slug: null,
-            date: null,
-            text: null,
-            description: null,
-            posted: null,
-            type: null,
-            image: "",
+            id: props.post.id,
+            title: props.post.title,
+            slug: props.post.slug,
+            date: props.post.date,
+            description: props.post.description,
+            text: props.post.text,
+            type: props.post.type,
+            posted: props.post.posted,
+            category_id: props.post.category_id,
         });
 
         function submit() {
-            router.post(route("post.store"), form);
+            if (form.id != "") router.put(route("post.update", form.id), form);
+            else router.post(route("post.store"), form);
         }
 
-        function upload() {
-            router.post(route("post.upload", form.id), form);
-        }
-
-        return { form, submit, upload };
+        return { form, submit };
     },
 };
 </script>

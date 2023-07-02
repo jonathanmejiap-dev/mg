@@ -6,7 +6,23 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
+
+
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+
+//ORuga
+import Oruga from '@oruga-ui/oruga-next';
+import '@oruga-ui/oruga-next/dist/oruga.css';
+import '@oruga-ui/oruga-next/dist/oruga-full.css';
+
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';//para fontawesome
+import { library } from '@fortawesome/fontawesome-svg-core';//para fontawesome
+import { fas } from '@fortawesome/free-solid-svg-icons';//para fontawesome
+
+import CKEditor from '@ckeditor/ckeditor5-vue';//para CKeditor
+
+library.add(fas); //para fontawesome
+
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -14,6 +30,9 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
             .use(plugin)
+            .use(CKEditor)
+            .component('fa', FontAwesomeIcon)
+            .use(Oruga)
             .use(ZiggyVue, Ziggy)
             .mount(el);
     },

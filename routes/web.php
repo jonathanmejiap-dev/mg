@@ -35,6 +35,10 @@ Route::middleware([
 
     Route::resource('/dashboard/category', App\Http\Controllers\Dashboard\CategoryController::class);
     Route::resource('/post', App\Http\Controllers\Dashboard\PostController::class);
+    
+    Route::post('/post/upload/{post}', [App\Http\Controllers\Dashboard\PostController::class, 'upload'])->name('post.upload');
+    Route::delete('/post/image/delete/{post}', [App\Http\Controllers\Dashboard\PostController::class, 'imageDelete'])->name('post.image-delete');
+
 });
 
 //Podriamos implementarlo de esta forma tambien

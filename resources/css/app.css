@@ -27,3 +27,44 @@
 .v-leave-to{
     opacity: 0;
 }
+
+.ck-editor__editable_inline{
+    min-height: 300px;
+}
+
+.ck-editor__main h1{
+    font-size:30px;
+
+}
+
+.ck-editor__main h2{
+    font-size:25px;
+
+}
+
+.ck-editor__main h3{
+ 
+    font-size:20px;
+}
+
+.ck-editor__main h4{
+  
+    font-size:15px;
+}
+
+.ck-editor__main ul{
+    list-style-type: circle;
+     margin: 10px;
+     padding: 10px;
+ 
+ }
+
+.ck-editor__main ol{
+   list-style-type: decimal;
+    margin: 10px;
+    padding: 10px;
+
+}
+
+
+

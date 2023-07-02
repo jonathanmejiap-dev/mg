@@ -1,5 +1,5 @@
 <template>
-    <app-layout>
+    <app-layout title="Crear post">
         <jet-form-section @submitted="submit" class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
             <template #title> Create Post </template>
             <template #description> Create a Post </template>
@@ -66,7 +66,7 @@
                 <jet-button type="submit">Send</jet-button>
             </template>
         </jet-form-section>
-        <div class="container">
+        <!-- <div class="container">
             <div class="card">
                 <div class="card-body">
                     <div class="grid grid-cols-2 gap-2">
@@ -108,14 +108,26 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-    <div class="container mt-4" v-if="post.image">
+    <!-- <div class="container mt-4" v-if="post.image">
         <div class="card">
             <div class="card-body">
                 <img class="max-w-xs rounded-md shadow-sm" :src="'/image/post/' + post.image" alt="">
                 <jet-danger-button class="mt-4" @click="form.delete(route('post.image-delete',form.id))">Delete</jet-danger-button>
                 <a :href="'/image/post/' + post.image" download="" class="ml-2 mt-4 link-button-default">Download</a>
+            </div>
+        </div>
+    </div> -->
+
+
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-body">
+                <jet-label value="Image"/>
+                <jet-input class="w-full" type="file" @input="form.image = $event.target.files[0]"/>
+                <jet-input-error :message="errors.image"/>
+                <jet-button @click="upload">Subir</jet-button> 
             </div>
         </div>
     </div>
@@ -166,7 +178,7 @@ export default {
             type: props.post.type,
             posted: props.post.posted,
             category_id: props.post.category_id,
-           
+            image: "",
         });
 
         function submit() {

@@ -38,6 +38,7 @@ class Store extends FormRequest
             "posted" => "required",
             "type" => "required",
             "category_id" => "required",
+            'image' => 'required|mimes:jpg,jpeg,png,gif|max:10240',
             
         ];
     }
